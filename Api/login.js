@@ -20,12 +20,11 @@ const dbConfig = require('../Services/dbConfig')
 router.get('/translation/:language',async (req,res)=>{
     try{
         let pool = await sql.connect(dbConfig);
-        let res = await pool.request()
+        let tr = await pool.request()
         .input("Language",sql.VarChar,req.params.language)
-        .execute("usp_getTranslations")
-        //return translations.recordsets;
-        // res.send(res.recordsets)
-        console.log(res.recordsets)
+        .execute("usp_getTranslations").then(result=>{
+            res.send(result.recordsets)
+        })
     }catch(err){
         res.send(err);
         console.log(err)
