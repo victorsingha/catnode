@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router();
 const jwtService = require('../Services/jwt')
-const mdlTranslation = require('../Models/mdlTranslation')
 // const sql = require('mssql')
 const sql = require('mssql/msnodesqlv8')
 const dbConfig = require('../Services/dbConfig')
+const st = require('../Models/mdlStatus');
 
 // router.get('/translation',async (req,res)=>{
 //     try{
@@ -17,47 +17,38 @@ const dbConfig = require('../Services/dbConfig')
 //     }
 // })
 
-router.get('/translation/:language',async (req,res)=>{
-    try{
+router.get('/translation/:language', async (req, res) => {
+    try {
         let pool = await sql.connect(dbConfig);
         let tr = await pool.request()
-        .input("Language",sql.VarChar,req.params.language)
-        .execute("usp_getTranslations").then(result=>{
-            res.send(result.recordsets)
-        })
-    }catch(err){
+            .input("Language", sql.VarChar, req.params.language)
+            .execute("usp_getTranslations").then(result => {
+                res.send(result.recordsets[0])
+            })
+    } catch (err) {
         res.send(err);
-        console.log(err)
     }
 })
 
 
-router.post('/login',async(req,res)=>{
-    try{
-        // const result = await user.findOne(req.body)
-        // if(result ==  null){
-        //     res.send({result:"Invalid Credentials"})
-        //     return
-        // }else{
-        //     let obj = {
-        //         email:result.email,
-        //     }
-        //     const token = jwtService.generateAccessToken(obj)
-        //     res.send({token:token})
-        // }
+router.post('/login', async (req, res) => {
+    try {
+        let obj = {
+                email:'victor@gmail.com',
+        }
         const token = jwtService.generateAccessToken(obj)
-        res.send({token:token})
-    }catch(err){
-        res.send(err)
+        res.send({ StatusCode:"S",StatusMessgae:"Success", Token: token })
+    } catch (err) {
+        res.send({StatusCode:'F',StatusMessage:err.message})
     }
 })
 
-router.get('/authenticate',jwtService.authenticateToken,(req,res)=>{
-try{
-res.send(req.body)
-}catch(err){
-res.send(err)
-}
+router.get('/authenticate', jwtService.authenticateToken, (req, res) => {
+    try {
+        res.send(req.body)
+    } catch (err) {
+        res.send({StatusCode:'F',StatusMessage:err.message})
+    }
 })
 
 
