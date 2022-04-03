@@ -1,16 +1,18 @@
 const express = require('express')
 const app = express()
-const loginApi = require('./Api/login')
+const user = require('./Api/user')
+const common = require('./Api/common')
 const port = process.env.PORT || 3000
 
 
 
 app.use(express.json())
-app.use('/login',loginApi)
+app.use('/api/user',user)
+app.use('/api',common)
 
 
 app.get('*',(req,res)=>{
-    res.status(404).send("Oops!404")
+    res.status(404).send({StatusCode:'F',StatusMessage:'API route not found.'})
 })
 
 
