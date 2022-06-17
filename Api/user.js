@@ -45,6 +45,7 @@ router.post('/register', async (req, res) => {
     }
 })
 
+//test
 
 router.get('/authenticate', jwtService.authenticateToken, (req, res) => {
     try {
