@@ -5,6 +5,9 @@ const common = require('./Api/common')
 const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express') 
 const port = process.env.PORT || 3000
+const cors = require('cors');
+
+app.use(cors());
 
 const swaggerOption={
   definition:{
