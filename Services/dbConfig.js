@@ -10,12 +10,7 @@
 // }
 
 
- var config = {
-        user: 'Vi',
-        password: '',
-        server: '', 
-        database: '' 
-    };
+
 
 
 module.exports = config;
