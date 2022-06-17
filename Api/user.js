@@ -17,6 +17,8 @@ router.post('/login', async (req, res) => {
     }
 })
 
+//test
+
 router.get('/authenticate', jwtService.authenticateToken, (req, res) => {
     try {
         res.send(req.body)
