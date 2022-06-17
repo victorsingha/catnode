@@ -6,7 +6,7 @@ const dbConfig = require('../Services/dbConfig')
 router.get('/translation/:language', async (req, res) => {
     try {
         let pool = await sql.connect(dbConfig);
-        let tr = await pool.request()
+        await pool.request()
             .input("Language", sql.VarChar, req.params.language)
             .execute("usp_getTranslations").then(result => {
                 let list = result.recordsets[0];
