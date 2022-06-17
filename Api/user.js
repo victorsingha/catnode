@@ -3,14 +3,16 @@ const router = express.Router();
 const jwtService = require('../Services/jwt')
 const sql = require('mssql/msnodesqlv8')
 const dbConfig = require('../Services/dbConfig')
-const st = require('../Models/mdlStatus');
+
 
 router.post('/login', async (req, res) => {
     try {
         let pool = await sql.connect(dbConfig);
+        let request = req.body;
+        console.log(request)
         await pool.request()
-            .input("email", sql.VarChar, "victor@gmail.com")
-            .input("password", sql.NVarChar, "12345")
+            .input("email", sql.VarChar, request.email)
+            .input("password", sql.NVarChar, request.password)
             .execute("usp_loginUser").then(result => {
                 if(result.recordset[0].StatusCode == "S")
                 {

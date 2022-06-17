@@ -2,17 +2,14 @@ const express = require('express')
 const app = express()
 const user = require('./Api/user')
 const common = require('./Api/common')
-var bodyParser = require('body-parser')
  
 const port = process.env.PORT || 3000
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
 
-// parse application/json
-app.use(bodyParser.json())
+app.use(express.json()),
+app.use(express.urlencoded({extended: false})); 
 
-app.use(express.json())
+
 app.use('/api/user',user)
 app.use('/api',common)
 
