@@ -11,7 +11,7 @@
 
 
  var config = {
-        user: 'Victor',
+        user: 'Victor2',
         password: '',
         server: '', 
         database: '' 
