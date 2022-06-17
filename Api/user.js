@@ -17,7 +17,7 @@ router.post('/login', async (req, res) => {
                 if(result.recordset[0].StatusCode == "S")
                 {
                     let obj = {
-                        email:'victor@gmail.com',
+                        email:request.email,
                     }
                     const token = jwtService.generateAccessToken(obj)
                     res.send({ StatusCode:"S",StatusMessgae:"Success", Token: token })
@@ -36,9 +36,10 @@ router.post('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
     try {
         let pool = await sql.connect(dbConfig);
-        let tr = await pool.request()
-            .input("email", sql.VarChar, "victor@gmail.com")
-            .input("password", sql.NVarChar, "12345")
+        let request = req.body;
+        await pool.request()
+            .input("email", sql.VarChar, request.email)
+            .input("password", sql.NVarChar, request.password)
             .execute("usp_registerUser").then(result => {
                 res.send(result.recordset[0]);
             })
