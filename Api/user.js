@@ -1,23 +1,9 @@
 const express = require('express')
 const router = express.Router();
 const jwtService = require('../Services/jwt')
-// const sql = require('mssql')
 const sql = require('mssql/msnodesqlv8')
 const dbConfig = require('../Services/dbConfig')
 const st = require('../Models/mdlStatus');
-
-// router.get('/translation',async (req,res)=>{
-//     try{
-//         let pool = await sql.connect(dbConfig);
-//         let translation = await pool.request().query("Select * from  table_translation");
-//         return translation.recordsets;
-//         res.send(await user.find())
-//     }catch(err){
-//         res.send(err);
-//     }
-// })
-
-
 
 router.post('/login', async (req, res) => {
     try {
