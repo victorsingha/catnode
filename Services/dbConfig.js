@@ -18,3 +18,8 @@ module.exports = config;
 // Go to Services And Application -> SQL Server Configuration Manager -> SQL Server Network Configuration -> Protocols for MSSQLSERVER -> Enable TCP
 
 // Go to Services And Application -> SQL Server Configuration Manager -> SQL Server Services -> Restart SQL Server(MSSQLSERVER)
+
+// select  distinct local_net_address, local_tcp_port from  sys.dm_exec_connections  where local_net_address is  not  null
+
+// server = local_net_address
+// port = local_tcp_port
